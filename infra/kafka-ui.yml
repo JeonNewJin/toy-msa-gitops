@@ -22,10 +22,8 @@ spec:
             - name: KAFKA_CLUSTERS_0_NAME
               value: toy-msa
             - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-              value: kafka-0.kafka.toy-msa.svc.cluster.local:9092
-
+              value: kafka-bootstrap.toy-msa.svc.cluster.local:9092
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
