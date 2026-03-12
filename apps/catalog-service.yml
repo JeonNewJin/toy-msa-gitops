@@ -17,7 +17,7 @@ spec:
       serviceAccountName: catalog-service
       containers:
         - name: catalog-service
-          image: ghcr.io/jeonnewjin/toy-msa/catalog-service:a85bf61c38518c82245acef27f7a96100e3c048f
+          image: ghcr.io/jeonnewjin/toy-msa/catalog-service:3048a6af36815987f5951e42b7afea8384ce8e12
           imagePullPolicy: Always
           ports:
             - name: http
