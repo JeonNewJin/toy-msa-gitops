@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: toy-msa
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
+    targetRevision: main
+    path: apps
+
+  destination:
+    server: https://kubernetes.default.svc  # 같은 클러스터 내부
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true     # git에서 삭제된 리소스 자동 제거
+      selfHeal: true  # 수동 변경을 git 상태로 되돌림
+    syncOptions:
+      - CreateNamespace=true
