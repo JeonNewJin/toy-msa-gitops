@@ -17,7 +17,7 @@ spec:
       serviceAccountName: user-service
       containers:
         - name: user-service
-          image: ghcr.io/jeonnewjin/toy-msa/user-service:latest
+          image: ghcr.io/jeonnewjin/toy-msa/user-service:be0e1d4554962da526277d187d1e371c6ea946d9
           imagePullPolicy: Always
           ports:
             - name: http
