@@ -53,7 +53,7 @@ spec:
                   name: app-secret
                   key: mysql-password
             - name: BOOTSTRAP_SERVERS
-              value: kafka-0.kafka.toy-msa.svc.cluster.local:9092
+              value: kafka-0.kafka:9092
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness

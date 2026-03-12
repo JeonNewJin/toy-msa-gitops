@@ -55,7 +55,7 @@ spec:
             - name: GRPC_CLIENT_CATALOG-SERVICE_PORT
               value: "9091"
             - name: BOOTSTRAP_SERVERS
-              value: kafka-0.kafka.toy-msa.svc.cluster.local:9092
+              value: kafka-0.kafka:9092
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
