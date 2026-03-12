@@ -51,11 +51,10 @@ spec:
             - name: kafka-data
               mountPath: /bitnami/kafka
           readinessProbe:
-            exec:
-              command: [ "bash", "-c", "kafka-topics.sh --bootstrap-server localhost:9092 --list" ]
+            tcpSocket:
+              port: 9092
             initialDelaySeconds: 30
-            timeoutSeconds: 30
-            periodSeconds: 15
+            periodSeconds: 10
             failureThreshold: 10
   volumeClaimTemplates:
     - metadata:
