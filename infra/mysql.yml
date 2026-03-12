@@ -63,7 +63,6 @@ metadata:
   namespace: toy-msa
 spec:
   type: ClusterIP
-  clusterIP: None
   selector:
     app: mysql
   ports:
