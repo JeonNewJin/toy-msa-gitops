@@ -32,7 +32,7 @@ spec:
             - name: KAFKA_CFG_LISTENERS
               value: "PLAINTEXT://:9092,CONTROLLER://:9093"
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
-              value: "PLAINTEXT://kafka-0.kafka:9092"
+              value: "PLAINTEXT://kafka-0.kafka.toy-msa.svc.cluster.local:9092"
             - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP
               value: "PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT"
             - name: KAFKA_CFG_INTER_BROKER_LISTENER_NAME
@@ -40,7 +40,7 @@ spec:
             - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
               value: "CONTROLLER"
             - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
-              value: "1@kafka-0.kafka:9093"
+              value: "1@kafka-0.kafka.toy-msa.svc.cluster.local:9093"
             - name: KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR
               value: "1"
             - name: KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
@@ -57,9 +57,9 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 9092
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 10
-            failureThreshold: 10
+            failureThreshold: 12
   volumeClaimTemplates:
     - metadata:
         name: kafka-data
@@ -76,6 +76,7 @@ metadata:
   namespace: toy-msa
 spec:
   clusterIP: None
+  publishNotReadyAddresses: true
   selector:
     app: kafka
   ports:
