@@ -17,7 +17,7 @@ spec:
       serviceAccountName: apigateway-service
       containers:
         - name: apigateway-service
-          image: ghcr.io/JeonNewJin/toy-msa/apigateway-service:latest
+          image: ghcr.io/jeonnewjin/toy-msa/apigateway-service:latest
           imagePullPolicy: Always
           ports:
             - name: http

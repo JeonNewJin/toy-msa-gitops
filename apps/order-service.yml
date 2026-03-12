@@ -17,7 +17,7 @@ spec:
       serviceAccountName: order-service
       containers:
         - name: order-service
-          image: ghcr.io/JeonNewJin/toy-msa/order-service:latest
+          image: ghcr.io/jeonnewjin/toy-msa/order-service:latest
           imagePullPolicy: Always
           ports:
             - name: http
