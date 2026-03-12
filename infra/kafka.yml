@@ -54,6 +54,7 @@ spec:
             exec:
               command: [ "bash", "-c", "kafka-topics.sh --bootstrap-server localhost:9092 --list" ]
             initialDelaySeconds: 20
+            timeoutSeconds: 10
             periodSeconds: 10
             failureThreshold: 10
   volumeClaimTemplates:
