@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: toy-msa-infra
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
+    targetRevision: main
+    path: infra
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
