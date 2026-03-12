@@ -15,6 +15,8 @@ spec:
         app: catalog-service
     spec:
       serviceAccountName: catalog-service
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: catalog-service
           image: ghcr.io/jeonnewjin/toy-msa/catalog-service:3048a6af36815987f5951e42b7afea8384ce8e12

@@ -15,6 +15,8 @@ spec:
         app: order-service
     spec:
       serviceAccountName: order-service
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
         - name: order-service
           image: ghcr.io/jeonnewjin/toy-msa/order-service:3048a6af36815987f5951e42b7afea8384ce8e12
