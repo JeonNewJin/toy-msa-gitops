@@ -54,12 +54,20 @@ spec:
           volumeMounts:
             - name: kafka-data
               mountPath: /bitnami/kafka
+          startupProbe:
+            tcpSocket:
+              port: 9092
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 18
           readinessProbe:
             tcpSocket:
               port: 9092
-            initialDelaySeconds: 60
+            initialDelaySeconds: 5
             periodSeconds: 10
-            failureThreshold: 12
+            timeoutSeconds: 5
+            failureThreshold: 6
   volumeClaimTemplates:
     - metadata:
         name: kafka-data
