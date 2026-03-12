@@ -19,7 +19,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: order-service
-          image: ghcr.io/jeonnewjin/toy-msa/order-service:3048a6af36815987f5951e42b7afea8384ce8e12
+          image: ghcr.io/jeonnewjin/toy-msa/order-service:6f87f5f710d7adebae445d3e4a76dd15b4ef4a63
           imagePullPolicy: Always
           ports:
             - name: http
