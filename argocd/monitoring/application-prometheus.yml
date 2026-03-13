@@ -17,6 +17,12 @@ spec:
           service:
             type: NodePort
             nodePort: 30090
+        persistentVolume:
+          enabled: false
+        kubeletService:
+          enabled: false
+        extraArgs:
+          enable-feature: "default-metrics-access-endpoint"
         serverFiles:
           prometheus.yml:
             global:
