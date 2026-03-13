@@ -14,8 +14,15 @@ spec:
       releaseName: elasticsearch
       values: |
         fullnameOverride: elasticsearch
-        global:
-          kibanaEnabled: false
+      image:
+        repository: bitnamilegacy/elasticsearch
+      sysctlImage:
+        repository: bitnamilegacy/os-shell
+      volumePermissions:
+        image:
+          repository: bitnamilegacy/os-shell
+      global:
+        kibanaEnabled: false
         security:
           enabled: false
           tls:
