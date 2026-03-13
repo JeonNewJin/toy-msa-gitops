@@ -9,15 +9,10 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: mysql
-    targetRevision: 11.x.x
+    targetRevision: 11.9.13
     helm:
       releaseName: mysql
       values: |
-        global:
-          imagePullSecrets:
-            - name: ghcr-secret
-        image:
-          registry: ghcr.io
         auth:
           rootPassword: root
           username: application
