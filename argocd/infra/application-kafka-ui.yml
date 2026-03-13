@@ -17,8 +17,7 @@ spec:
           kafka:
             clusters:
               - name: toy-msa
-                bootstrapServers: toy-msa-kafka.toy-msa.svc.cluster.local:9092
-
+                bootstrapServers: kafka.toy-msa.svc.cluster.local:9092
         service:
           type: NodePort
           nodePort: 30080
