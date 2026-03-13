@@ -16,6 +16,7 @@ spec:
         image:
           registry: docker.io
           repository: bitnamilegacy/kibana
+          tag: 9.1.2-debian-12-r0
         elasticsearch:
           hosts:
             - elasticsearch-master
