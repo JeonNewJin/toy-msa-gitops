@@ -14,15 +14,18 @@ spec:
       releaseName: elasticsearch
       values: |
         fullnameOverride: elasticsearch
-      image:
-        repository: bitnamilegacy/elasticsearch
-      sysctlImage:
-        repository: bitnamilegacy/os-shell
-      volumePermissions:
+        global:
+          kibanaEnabled: false
         image:
+          registry: docker.io
+          repository: bitnamilegacy/elasticsearch
+        sysctlImage:
+          registry: docker.io
           repository: bitnamilegacy/os-shell
-      global:
-        kibanaEnabled: false
+        volumePermissions:
+          image:
+            registry: docker.io
+            repository: bitnamilegacy/os-shell
         security:
           enabled: false
           tls:
