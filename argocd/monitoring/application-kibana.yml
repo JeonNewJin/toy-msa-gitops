@@ -13,14 +13,19 @@ spec:
     helm:
       releaseName: kibana
       values: |
-        values: |
         image:
           registry: docker.io
           repository: bitnamilegacy/kibana
-        resourcesPreset: small
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
         elasticsearch:
           hosts:
-            - elasticsearch
+            - elasticsearch 
           port: 9200
           security:
             auth:
