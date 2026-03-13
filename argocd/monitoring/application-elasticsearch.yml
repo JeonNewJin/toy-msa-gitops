@@ -20,6 +20,13 @@ spec:
             xpack.security.enabled: false
             xpack.security.http.ssl.enabled: false
             discovery.type: single-node
+        clusterHealthCheckParams: "wait_for_status=yellow&timeout=5s"
+        readinessProbe:
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
         service:
           type: NodePort
           nodePort: 30200
