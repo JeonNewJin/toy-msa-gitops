@@ -14,11 +14,10 @@ spec:
       releaseName: elasticsearch
       values: |
         replicas: 1
-        minimumMasterNodes: 1
         protocol: http
         createCert: false
         esJavaOpts: "-Xms512m -Xmx512m"
-        clusterHealthCheckParams: "wait_for_status=yellow&timeout=30s"
+        clusterHealthCheckParams: "wait_for_status=yellow&timeout=60s"
         readinessProbe:
           initialDelaySeconds: 30
           periodSeconds: 10
