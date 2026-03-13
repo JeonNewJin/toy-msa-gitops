@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: toy-msa-logstash
+  name: logging-logstash
   namespace: argocd
 spec:
   project: default

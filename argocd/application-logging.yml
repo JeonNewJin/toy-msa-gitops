@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra
+  name: logging
   namespace: argocd
 spec:
   project: default
@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
     targetRevision: main
-    path: argocd/infra
+    path: argocd/logging
 
   destination:
     server: https://kubernetes.default.svc

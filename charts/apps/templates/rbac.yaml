@@ -6,32 +6,6 @@ metadata:
 
 ---
 
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: apigateway-service
-rules:
-  - apiGroups: [""]
-    resources: ["services", "endpoints", "pods"]
-    verbs: ["get", "list", "watch"]
-
----
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: apigateway-service
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: apigateway-service
-subjects:
-  - kind: ServiceAccount
-    name: apigateway-service
-    namespace: {{ .Values.namespace }}
-
----
-
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -76,6 +50,9 @@ roleRef:
   kind: ClusterRole
   name: app-service
 subjects:
+  - kind: ServiceAccount
+    name: apigateway-service
+    namespace: {{ .Values.namespace }}
   - kind: ServiceAccount
     name: user-service
     namespace: {{ .Values.namespace }}

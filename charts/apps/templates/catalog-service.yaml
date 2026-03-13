@@ -28,9 +28,6 @@ spec:
               containerPort: {{ .Values.catalogService.port.management }}
             - name: grpc
               containerPort: {{ .Values.catalogService.port.grpc }}
-          envFrom:
-            - configMapRef:
-                name: common-env
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.global.springProfile }}
@@ -38,6 +35,12 @@ spec:
               value: {{ .Values.catalogService.port.http | quote }}
             - name: MANAGEMENT_SERVER_PORT
               value: {{ .Values.catalogService.port.management | quote }}
+            - name: ZIPKIN_ENDPOINT
+              value: {{ .Values.zipkin.endpoint }}
+            - name: LOGSTASH_HOST
+              value: {{ .Values.logstash.host }}
+            - name: LOGSTASH_PORT
+              value: {{ .Values.logstash.port | quote }}
             - name: MYSQL_HOST
               value: {{ .Values.catalogService.mysql.host }}
             - name: MYSQL_PORT

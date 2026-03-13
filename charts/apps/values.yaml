@@ -13,10 +13,12 @@ secret:
   jwtSecret: ef3c624796ba503c2f44152e89b643db951fa5101bc711a7690bae2f80272790
   jwtExpiration: "86400000"
 
-commonEnv:
-  zipkinEndpoint: http://zipkin:9411/api/v2/spans
-  logstashHost: logstash
-  logstashPort: "5044"
+zipkin:
+  endpoint: http://zipkin:9411/api/v2/spans
+
+logstash:
+  host: logstash
+  port: "5044"
 
 apigatewayService:
   replicas: 1

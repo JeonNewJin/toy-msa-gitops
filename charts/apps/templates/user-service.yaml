@@ -26,9 +26,6 @@ spec:
               containerPort: {{ .Values.userService.port.http }}
             - name: management
               containerPort: {{ .Values.userService.port.management }}
-          envFrom:
-            - configMapRef:
-                name: common-env
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.global.springProfile }}
@@ -36,6 +33,12 @@ spec:
               value: {{ .Values.userService.port.http | quote }}
             - name: MANAGEMENT_SERVER_PORT
               value: {{ .Values.userService.port.management | quote }}
+            - name: ZIPKIN_ENDPOINT
+              value: {{ .Values.zipkin.endpoint }}
+            - name: LOGSTASH_HOST
+              value: {{ .Values.logstash.host }}
+            - name: LOGSTASH_PORT
+              value: {{ .Values.logstash.port | quote }}
             - name: MYSQL_HOST
               value: {{ .Values.userService.mysql.host }}
             - name: MYSQL_PORT
