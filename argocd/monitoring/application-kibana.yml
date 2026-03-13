@@ -1,18 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: toy-msa-apps
+  name: toy-msa-kibana
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
-    targetRevision: main
-    path: charts/apps
+    repoURL: https://helm.elastic.co
+    chart: kibana
+    targetRevision: 8.5.x
     helm:
-      valueFiles:
-        - values.yaml
+      releaseName: kibana
+      values: |
+        elasticsearchHosts: "http://elasticsearch-master:9200"
+        service:
+          type: NodePort
+          nodePort: 30601
 
   destination:
     server: https://kubernetes.default.svc

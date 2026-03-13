@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalog-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.catalogService.replicas }}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -16,32 +16,32 @@ spec:
     spec:
       serviceAccountName: catalog-service
       imagePullSecrets:
-        - name: ghcr-secret
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
       containers:
         - name: catalog-service
-          image: ghcr.io/jeonnewjin/toy-msa/catalog-service:aa89595b3a4915799de795af51a1bed41106d1b5
+          image: {{ .Values.global.imageRegistry }}/catalog-service:{{ .Values.global.imageTag }}
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.catalogService.port.http }}
             - name: management
-              containerPort: 8081
+              containerPort: {{ .Values.catalogService.port.management }}
             - name: grpc
-              containerPort: 9091
+              containerPort: {{ .Values.catalogService.port.grpc }}
           envFrom:
             - configMapRef:
                 name: common-env
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prd
+              value: {{ .Values.global.springProfile }}
             - name: SERVER_PORT
-              value: "8080"
+              value: {{ .Values.catalogService.port.http | quote }}
             - name: MANAGEMENT_SERVER_PORT
-              value: "8081"
+              value: {{ .Values.catalogService.port.management | quote }}
             - name: MYSQL_HOST
-              value: mysql
+              value: {{ .Values.catalogService.mysql.host }}
             - name: MYSQL_PORT
-              value: "3306"
+              value: {{ .Values.catalogService.mysql.port | quote }}
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -53,17 +53,17 @@ spec:
                   name: app-secret
                   key: mysql-password
             - name: BOOTSTRAP_SERVERS
-              value: kafka-0.kafka:9092
+              value: {{ .Values.catalogService.kafka.bootstrapServers }}
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8081
+              port: {{ .Values.catalogService.port.management }}
             initialDelaySeconds: 20
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8081
+              port: {{ .Values.catalogService.port.management }}
             initialDelaySeconds: 30
             periodSeconds: 15
 
@@ -73,18 +73,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catalog-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 spec:
   type: ClusterIP
   selector:
     app: catalog-service
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: {{ .Values.catalogService.port.http }}
+      targetPort: {{ .Values.catalogService.port.http }}
     - name: management
-      port: 8081
-      targetPort: 8081
+      port: {{ .Values.catalogService.port.management }}
+      targetPort: {{ .Values.catalogService.port.management }}
     - name: grpc
-      port: 9091
-      targetPort: 9091
+      port: {{ .Values.catalogService.port.grpc }}
+      targetPort: {{ .Values.catalogService.port.grpc }}

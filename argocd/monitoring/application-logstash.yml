@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: toy-msa-logstash
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://helm.elastic.co
+    chart: logstash
+    targetRevision: 8.5.x
+    helm:
+      releaseName: logstash
+      values: |
+        logstashJavaOpts: "-Xms256m -Xmx256m"
+        logstashPipeline:
+          logstash.conf: |
+            input {
+              tcp {
+                port => 5044
+                codec => json_lines
+              }
+            }
+            filter {
+              if ![service] {
+                mutate {
+                  add_field => { "service" => "unknown" }
+                }
+              }
+            }
+            output {
+              elasticsearch {
+                hosts => ["http://elasticsearch-master:9200"]
+                index => "%{[service]}-logs-%{+YYYY.MM.dd}"
+              }
+              stdout { codec => rubydebug }
+            }
+        service:
+          type: ClusterIP
+          ports:
+            - name: beats
+              port: 5044
+              protocol: TCP
+              targetPort: 5044
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

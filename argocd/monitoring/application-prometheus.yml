@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: toy-msa-prometheus
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: prometheus
+    targetRevision: 25.x.x
+    helm:
+      releaseName: prometheus
+      values: |
+        server:
+          service:
+            type: NodePort
+            nodePort: 30090
+        serverFiles:
+          prometheus.yml:
+            global:
+              scrape_interval: 5s
+            scrape_configs:
+              - job_name: 'apigateway-service'
+                metrics_path: '/actuator/prometheus'
+                static_configs:
+                  - targets: ['apigateway-service:8081']
+              - job_name: 'user-service'
+                metrics_path: '/actuator/prometheus'
+                static_configs:
+                  - targets: ['user-service:8081']
+              - job_name: 'order-service'
+                metrics_path: '/actuator/prometheus'
+                static_configs:
+                  - targets: ['order-service:8081']
+              - job_name: 'catalog-service'
+                metrics_path: '/actuator/prometheus'
+                static_configs:
+                  - targets: ['catalog-service:8081']
+        alertmanager:
+          enabled: false
+        prometheus-pushgateway:
+          enabled: false
+        kube-state-metrics:
+          enabled: false
+        prometheus-node-exporter:
+          enabled: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

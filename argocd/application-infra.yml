@@ -9,15 +9,13 @@ spec:
   source:
     repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
     targetRevision: main
-    path: infra
+    path: argocd/infra
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: toy-msa
+    namespace: argocd
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true

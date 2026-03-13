@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: apigateway-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 
 ---
 
@@ -11,9 +11,9 @@ kind: ClusterRole
 metadata:
   name: apigateway-service
 rules:
-  - apiGroups: [ "" ]
-    resources: [ "services", "endpoints", "pods" ]
-    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [""]
+    resources: ["services", "endpoints", "pods"]
+    verbs: ["get", "list", "watch"]
 
 ---
 
@@ -28,7 +28,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: apigateway-service
-    namespace: toy-msa
+    namespace: {{ .Values.namespace }}
 
 ---
 
@@ -36,7 +36,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: user-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 
 ---
 
@@ -44,7 +44,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: order-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 
 ---
 
@@ -52,7 +52,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: catalog-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 
 ---
 
@@ -61,9 +61,9 @@ kind: ClusterRole
 metadata:
   name: app-service
 rules:
-  - apiGroups: [ "" ]
-    resources: [ "services", "endpoints", "pods" ]
-    verbs: [ "get", "list", "watch" ]
+  - apiGroups: [""]
+    resources: ["services", "endpoints", "pods"]
+    verbs: ["get", "list", "watch"]
 
 ---
 
@@ -78,10 +78,10 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: user-service
-    namespace: toy-msa
+    namespace: {{ .Values.namespace }}
   - kind: ServiceAccount
     name: order-service
-    namespace: toy-msa
+    namespace: {{ .Values.namespace }}
   - kind: ServiceAccount
     name: catalog-service
-    namespace: toy-msa
+    namespace: {{ .Values.namespace }}

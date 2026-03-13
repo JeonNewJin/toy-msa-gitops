@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: toy-msa-monitoring
+  name: toy-msa-zipkin
   namespace: argocd
 spec:
   project: default
@@ -9,13 +9,15 @@ spec:
   source:
     repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
     targetRevision: main
-    path: argocd/monitoring
+    path: manifests/zipkin
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: toy-msa
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

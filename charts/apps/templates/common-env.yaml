@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-env
+  namespace: {{ .Values.namespace }}
+data:
+  ZIPKIN_ENDPOINT: {{ .Values.commonEnv.zipkinEndpoint }}
+  LOGSTASH_HOST: {{ .Values.commonEnv.logstashHost }}
+  LOGSTASH_PORT: {{ .Values.commonEnv.logstashPort | quote }}

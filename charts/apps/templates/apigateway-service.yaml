@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apigateway-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.apigatewayService.replicas }}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
@@ -16,22 +16,22 @@ spec:
     spec:
       serviceAccountName: apigateway-service
       imagePullSecrets:
-        - name: ghcr-secret
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
       containers:
         - name: apigateway-service
-          image: ghcr.io/jeonnewjin/toy-msa/apigateway-service:aa89595b3a4915799de795af51a1bed41106d1b5
+          image: {{ .Values.global.imageRegistry }}/apigateway-service:{{ .Values.global.imageTag }}
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: {{ .Values.apigatewayService.port.http }}
             - name: management
-              containerPort: 8081
+              containerPort: {{ .Values.apigatewayService.port.management }}
           envFrom:
             - configMapRef:
                 name: common-env
           env:
             - name: SPRING_PROFILES_ACTIVE
-              value: prd
+              value: {{ .Values.global.springProfile }}
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -40,13 +40,13 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8081
+              port: {{ .Values.apigatewayService.port.management }}
             initialDelaySeconds: 20
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8081
+              port: {{ .Values.apigatewayService.port.management }}
             initialDelaySeconds: 30
             periodSeconds: 15
 
@@ -56,16 +56,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: apigateway-service
-  namespace: toy-msa
+  namespace: {{ .Values.namespace }}
 spec:
-  type: NodePort
+  type: {{ .Values.apigatewayService.service.type }}
   selector:
     app: apigateway-service
   ports:
     - name: http
-      port: 8000
-      targetPort: 8000
-      nodePort: 30000
+      port: {{ .Values.apigatewayService.port.http }}
+      targetPort: {{ .Values.apigatewayService.port.http }}
+      {{- if eq .Values.apigatewayService.service.type "NodePort" }}
+      nodePort: {{ .Values.apigatewayService.service.nodePort }}
+      {{- end }}
     - name: management
-      port: 8081
-      targetPort: 8081
+      port: {{ .Values.apigatewayService.port.management }}
+      targetPort: {{ .Values.apigatewayService.port.management }}
