@@ -17,7 +17,7 @@ spec:
           registry: docker.io
           repository: bitnamilegacy/kafka
         controller:
-          replicaCount: 1
+          replicaCount: 3
           controllerOnly: false
         broker:
           replicaCount: 0
@@ -34,11 +34,11 @@ spec:
           enabled: true
           size: 5Gi
         extraConfig: |
-          offsets.topic.replication.factor=1
-          transaction.state.log.replication.factor=1
-          transaction.state.log.min.isr=1
-          default.replication.factor=1
-          min.insync.replicas=1
+          offsets.topic.replication.factor=3
+          transaction.state.log.replication.factor=3
+          transaction.state.log.min.isr=2
+          default.replication.factor=3
+          min.insync.replicas=2
 
   destination:
     server: https://kubernetes.default.svc
