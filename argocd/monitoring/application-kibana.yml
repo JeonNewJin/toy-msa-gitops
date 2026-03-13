@@ -13,6 +13,9 @@ spec:
     helm:
       releaseName: kibana
       values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/kibana
         elasticsearch:
           hosts:
             - elasticsearch
