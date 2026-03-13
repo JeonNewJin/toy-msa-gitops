@@ -13,6 +13,7 @@ spec:
     helm:
       releaseName: kibana
       values: |
+        fullnameOverride: kibana
         elasticsearchHosts: "http://elasticsearch-master:9200"
         service:
           type: NodePort

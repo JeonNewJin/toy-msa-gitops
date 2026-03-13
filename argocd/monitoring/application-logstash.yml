@@ -13,6 +13,7 @@ spec:
     helm:
       releaseName: logstash
       values: |
+        fullnameOverride: logstash
         logstashJavaOpts: "-Xms256m -Xmx256m"
         logstashPipeline:
           logstash.conf: |
