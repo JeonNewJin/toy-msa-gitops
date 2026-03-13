@@ -5,13 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
     targetRevision: 31.0.0
     helm:
       values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/kafka
         replicaCount: 3
         kraft:
           clusterId: "MkU3OEVBNTcwNTJENDM2Qk"
@@ -30,11 +32,9 @@ spec:
           transaction.state.log.min.isr=2
           default.replication.factor=3
           min.insync.replicas=2
-
   destination:
     server: https://kubernetes.default.svc
     namespace: toy-msa
-
   syncPolicy:
     automated:
       prune: true
