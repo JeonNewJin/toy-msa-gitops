@@ -13,8 +13,11 @@ spec:
     helm:
       releaseName: mysql
       values: |
+        global:
+          imagePullSecrets:
+            - name: dockerhub-secret
         image:
-          registry: ghcr.io
+          registry: docker.io
         auth:
           rootPassword: root
           username: application
