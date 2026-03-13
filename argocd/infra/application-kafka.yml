@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
@@ -32,9 +33,11 @@ spec:
           transaction.state.log.min.isr=2
           default.replication.factor=3
           min.insync.replicas=2
+
   destination:
     server: https://kubernetes.default.svc
     namespace: toy-msa
+
   syncPolicy:
     automated:
       prune: true
