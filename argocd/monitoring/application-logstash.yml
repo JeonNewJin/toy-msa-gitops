@@ -32,7 +32,7 @@ spec:
             }
             output {
               elasticsearch {
-                hosts => ["http://elasticsearch-master-0:9200"]
+                hosts => ["http://elasticsearch:9200"]
                 index => "%{[service]}-logs-%{+YYYY.MM.dd}"
               }
               stdout { codec => rubydebug }
