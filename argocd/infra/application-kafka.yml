@@ -14,9 +14,9 @@ spec:
       values: |
         global:
           imagePullSecrets:
-            - name: dockerhub-secret
+            - name: ghcr-secret
         image:
-          registry: docker.io
+          registry: ghcr.io
         replicaCount: 3
         kraft:
           clusterId: "MkU3OEVBNTcwNTJENDM2Qk"

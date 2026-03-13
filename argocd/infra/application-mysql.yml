@@ -15,9 +15,9 @@ spec:
       values: |
         global:
           imagePullSecrets:
-            - name: dockerhub-secret
+            - name: ghcr-secret
         image:
-          registry: docker.io
+          registry: ghcr.io
         auth:
           rootPassword: root
           username: application
