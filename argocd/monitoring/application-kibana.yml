@@ -13,11 +13,13 @@ spec:
     helm:
       releaseName: kibana
       values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/kibana
         elasticsearch:
           hosts:
             - elasticsearch-master
           port: 9200
-
         service:
           type: NodePort
           nodePorts:
