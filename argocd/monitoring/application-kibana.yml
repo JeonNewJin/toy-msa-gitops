@@ -14,9 +14,9 @@ spec:
       releaseName: kibana
       values: |
         image:
-          registry: docker.io
-          repository: bitnamilegacy/kibana
-          tag: 9.1.2-debian-12-r0
+          registry: docker.elastic.co
+          repository: kibana/kibana
+          tag: 8.5.3
         elasticsearch:
           hosts:
             - elasticsearch-master
