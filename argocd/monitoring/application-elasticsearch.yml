@@ -13,6 +13,16 @@ spec:
     helm:
       releaseName: elasticsearch
       values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/elasticsearch
+        sysctlImage:
+          registry: docker.io
+          repository: bitnamilegacy/os-shell
+        volumePermissions:
+          image:
+            registry: docker.io
+            repository: bitnamilegacy/os-shell
         security:
           enabled: false
           tls:
