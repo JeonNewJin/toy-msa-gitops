@@ -9,14 +9,9 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
-    targetRevision: 31.x.x
+    targetRevision: 31.0.0
     helm:
       values: |
-        global:
-          imagePullSecrets:
-            - name: ghcr-secret
-        image:
-          registry: ghcr.io
         replicaCount: 3
         kraft:
           clusterId: "MkU3OEVBNTcwNTJENDM2Qk"
