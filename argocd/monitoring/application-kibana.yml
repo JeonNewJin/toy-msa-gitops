@@ -7,16 +7,21 @@ spec:
   project: default
 
   source:
-    repoURL: https://helm.elastic.co
+    repoURL: https://charts.bitnami.com/bitnami
     chart: kibana
-    targetRevision: 8.5.x
+    targetRevision: 12.1.10
     helm:
       releaseName: kibana
       values: |
-        elasticsearchHosts: "http://elasticsearch-master:9200"
+        elasticsearch:
+          hosts:
+            - elasticsearch-master
+          port: 9200
+
         service:
           type: NodePort
-          nodePort: 30601
+          nodePorts:
+            http: 30601
 
   destination:
     server: https://kubernetes.default.svc
