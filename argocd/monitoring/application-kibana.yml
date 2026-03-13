@@ -13,14 +13,15 @@ spec:
     helm:
       releaseName: kibana
       values: |
-        image:
-          registry: docker.elastic.co
-          repository: kibana/kibana
-          tag: 8.5.3
         elasticsearch:
           hosts:
-            - elasticsearch-master
+            - elasticsearch
           port: 9200
+          security:
+            auth:
+              enabled: false
+          tls:
+            enabled: false
         service:
           type: NodePort
           nodePorts:
