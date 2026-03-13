@@ -25,6 +25,24 @@ spec:
               enabled: false
           tls:
             enabled: false
+        startupProbe:
+          enabled: true
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 30
+        readinessProbe:
+          enabled: true
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 12
+        livenessProbe:
+          enabled: true
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 12
         service:
           type: NodePort
           nodePorts:
