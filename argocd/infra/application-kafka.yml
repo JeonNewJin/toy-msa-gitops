@@ -12,6 +12,8 @@ spec:
     targetRevision: 31.x.x
     helm:
       values: |
+        image:
+          registry: ghcr.io
         replicaCount: 3
         kraft:
           clusterId: "MkU3OEVBNTcwNTJENDM2Qk"
