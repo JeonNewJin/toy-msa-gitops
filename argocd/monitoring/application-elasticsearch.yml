@@ -14,6 +14,16 @@ spec:
       releaseName: elasticsearch
       values: |
         fullnameOverride: elasticsearch
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/elasticsearch
+        sysctlImage:
+          registry: docker.io
+          repository: bitnamilegacy/os-shell
+        volumePermissions:
+          image:
+            registry: docker.io
+            repository: bitnamilegacy/os-shell
         global:
           kibanaEnabled: false
         security:
@@ -25,17 +35,6 @@ spec:
           masterOnly: false
           replicaCount: 1
           heapSize: 512m
-          resources:
-            requests:
-              cpu: 200m
-              memory: 512Mi
-            limits:
-              cpu: 500m
-              memory: 1Gi
-          readinessProbe:
-            initialDelaySeconds: 120
-          livenessProbe:
-            initialDelaySeconds: 180
           persistence:
             enabled: true
             size: 5Gi
