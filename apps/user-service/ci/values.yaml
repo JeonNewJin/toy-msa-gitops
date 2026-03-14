@@ -17,15 +17,15 @@ configMap:
     SPRING_PROFILES_ACTIVE: prd
     SERVER_PORT: "8080"
     MANAGEMENT_SERVER_PORT: "8081"
-    ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
-    LOGSTASH_HOST: logstash
-    LOGSTASH_PORT: "5044"
     MYSQL_HOST: mysql
     MYSQL_PORT: "3306"
-    MYSQL_USER: application
-    MYSQL_PWD: application
-    JWT_SECRET: ef3c624796ba503c2f44152e89b643db951fa5101bc711a7690bae2f80272790
     JWT_EXPIRATION: "86400000"
+    LOGSTASH_HOST: logstash
+    LOGSTASH_PORT: "5044"
+    ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+
+secret:
+  enabled: true
 
 pdb:
   enabled: false

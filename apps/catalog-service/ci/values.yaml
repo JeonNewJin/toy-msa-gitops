@@ -22,9 +22,10 @@ configMap:
     LOGSTASH_PORT: "5044"
     MYSQL_HOST: mysql
     MYSQL_PORT: "3306"
-    MYSQL_USER: application
-    MYSQL_PWD: application
     BOOTSTRAP_SERVERS: kafka:9092
+
+secret:
+  enabled: true
 
 pdb:
   enabled: false

@@ -61,10 +61,16 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.configMap.enabled }}
+          {{- if or .Values.configMap.enabled .Values.secret.enabled }}
           envFrom:
+            {{- if .Values.configMap.enabled }}
             - configMapRef:
                 name: {{ .Release.Name }}-configmap
+            {{- end }}
+            {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Release.Name }}-secret
+            {{- end }}
           {{- end }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
