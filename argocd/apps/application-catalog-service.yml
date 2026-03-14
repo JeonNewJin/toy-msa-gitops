@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: catalog-service
+  name: app-catalog-service
   namespace: argocd
 spec:
   project: default
