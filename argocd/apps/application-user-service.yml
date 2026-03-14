@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apps
+  name: user-service
   namespace: argocd
 spec:
   project: default
@@ -9,11 +9,14 @@ spec:
   source:
     repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
     targetRevision: main
-    path: argocd/apps
+    path: apps/user-service
+    helm:
+      valueFiles:
+        - ci/values.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: toy-msa
 
   syncPolicy:
     automated:

@@ -1,0 +1,127 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/jeonnewjin/toy-msa/order-service
+  pullPolicy: Always
+  tag: ""
+
+imagePullSecrets:
+  - name: ghcr-secret
+
+nameOverride: ""
+fullnameOverride: ""
+
+configMap:
+  enabled: true
+  data:
+    SPRING_PROFILES_ACTIVE: prd
+    SERVER_PORT: "8080"
+    MANAGEMENT_SERVER_PORT: "8081"
+    ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
+    LOGSTASH_HOST: logstash
+    LOGSTASH_PORT: "5044"
+    MYSQL_HOST: mysql
+    MYSQL_PORT: "3306"
+    MYSQL_USER: application
+    MYSQL_PWD: application
+    GRPC_CLIENT_CATALOG-SERVICE_HOST: catalog-service
+    GRPC_CLIENT_CATALOG-SERVICE_PORT: "9091"
+    BOOTSTRAP_SERVERS: kafka:9092
+
+pdb:
+  enabled: false
+  minAvailable: 1
+
+metrics:
+  enabled: false
+  path: /actuator/prometheus
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 2000
+  fsGroup: 3000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+
+service:
+  type: ClusterIP
+  port: 8080
+  managementPort: 8081
+
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: toy-msa-strip-order-service@kubernetescrd
+  hosts:
+    - host: 10.0.1.158.nip.io
+      paths:
+        - path: /order-service
+          pathType: Prefix
+  tls: []
+  stripPrefix: /order-service
+
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs:
+    - name: gateway
+      sectionName: http
+  hostnames: []
+  rules: []
+
+resources: {}
+
+probes:
+  liveness:
+    enabled: true
+    config:
+      httpGet:
+        path: /actuator/health/liveness
+        port: 8081
+      initialDelaySeconds: 30
+      periodSeconds: 15
+  readiness:
+    enabled: true
+    config:
+      httpGet:
+        path: /actuator/health/readiness
+        port: 8081
+      initialDelaySeconds: 20
+      periodSeconds: 10
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+pvc:
+  enabled: false
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: "local-path"
+  capacity: "1Gi"
+
+volumes: []
+volumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
