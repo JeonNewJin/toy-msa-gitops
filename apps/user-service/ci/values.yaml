@@ -24,6 +24,16 @@ configMap:
     LOGSTASH_PORT: "5044"
     ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
 
+rollout:
+  canary:
+    steps:
+      - setWeight: 20
+      - pause:
+          duration: 1m
+      - setWeight: 50
+      - pause:
+          duration: 1m
+
 secret:
   enabled: true
 
