@@ -14,9 +14,10 @@ spec:
     matchLabels:
       {{- include "catalog-service.selectorLabels" . | nindent 6 }}
   strategy:
-    canary:
-      steps:
-        {{- toYaml .Values.rollout.canary.steps | nindent 8 }}
+    blueGreen:
+      activeService: {{ include "catalog-service.fullname" . }}-active
+      previewService: {{ include "catalog-service.fullname" . }}-preview
+      autoPromotionEnabled: {{ .Values.rollout.blueGreen.autoPromotionEnabled }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
