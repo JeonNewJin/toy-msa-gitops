@@ -70,7 +70,7 @@ ingress:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: toy-msa-strip-order-service@kubernetescrd
   hosts:
-    - host: 10.0.1.158.nip.io
+    - host: 168.107.30.129.nip.io
       paths:
         - path: /order-service
           pathType: Prefix
