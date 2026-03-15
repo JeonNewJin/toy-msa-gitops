@@ -15,6 +15,9 @@ spec:
   proxy:
     haproxy:
       enabled: false
+      size: 0
+      image: percona/haproxy:2.8
     router:
       enabled: true
       size: 1
+      image: percona/percona-server:8.4.6-6.1
