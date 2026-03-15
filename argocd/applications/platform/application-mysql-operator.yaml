@@ -9,7 +9,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://mysql.github.io/mysql-operator/
+    repoURL: https://canozokur.github.io/mysql-operator/
     chart: mysql-operator
     targetRevision: 2.2.x
     helm:
