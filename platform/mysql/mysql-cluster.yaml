@@ -13,3 +13,4 @@ spec:
     haproxy:
       enabled: true
       size: 1
+      image: percona/haproxy:2.8
