@@ -7,6 +7,6 @@ spec:
   secretName: mysql-credentials
   instances: 1
   router:
-    instances: 1
+    instances: 0
   version: "8.4.3"
   tlsUseSelfSigned: true

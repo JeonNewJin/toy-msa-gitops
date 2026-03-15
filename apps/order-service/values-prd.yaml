@@ -20,8 +20,8 @@ configMap:
     ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
     LOGSTASH_HOST: logstash
     LOGSTASH_PORT: "5044"
-    MYSQL_HOST: mysql
-    MYSQL_PORT: "6446"
+    MYSQL_HOST: mysql-0.mysql-instances.toy-msa.svc.cluster.local
+    MYSQL_PORT: "3306"
     GRPC_CLIENT_CATALOG-SERVICE_HOST: app-catalog-service
     GRPC_CLIENT_CATALOG-SERVICE_PORT: "9091"
     BOOTSTRAP_SERVERS: kafka-cluster-kafka-bootstrap:9092
