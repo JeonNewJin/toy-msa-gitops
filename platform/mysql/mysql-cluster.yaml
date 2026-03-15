@@ -5,8 +5,8 @@ metadata:
   namespace: toy-msa
 spec:
   secretName: mysql-credentials
-  instances: 1
+  instances: 2
   router:
-    instances: 0
+    instances: 1
   version: "8.4.3"
   tlsUseSelfSigned: true
