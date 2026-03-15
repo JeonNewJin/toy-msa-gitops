@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: ghcr.io/jeonnewjin/toy-msa/catalog-service
   pullPolicy: Always
-  tag: "b9dec9e865727fa8600f47533cf2bc4436dde6ff"
+  tag: "589a1143e1dcd95b3e2b7d237f238f72d4cb2140"
 
 imagePullSecrets:
   - name: ghcr-secret
