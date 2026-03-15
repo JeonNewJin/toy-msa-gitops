@@ -20,8 +20,8 @@ configMap:
     ZIPKIN_ENDPOINT: http://zipkin:9411/api/v2/spans
     LOGSTASH_HOST: logstash
     LOGSTASH_PORT: "5044"
-    MYSQL_HOST: mysql
-    MYSQL_PORT: "6446"
+    MYSQL_HOST: mysql-haproxy
+    MYSQL_PORT: "3306"
     BOOTSTRAP_SERVERS: kafka-cluster-kafka-bootstrap:9092
 
 rollout:

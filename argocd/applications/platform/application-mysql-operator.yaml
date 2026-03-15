@@ -9,14 +9,11 @@ spec:
   project: default
 
   source:
-    repoURL: https://canozokur.github.io/mysql-operator/
-    chart: mysql-operator
-    targetRevision: 2.2.x
+    repoURL: https://percona.github.io/percona-helm-charts/
+    chart: ps-operator
+    targetRevision: 1.0.0
     helm:
-      releaseName: mysql-operator
-      values: |
-        image:
-          tag: 9.6.0-2.2.7-aarch64
+      releaseName: ps-operator
 
   destination:
     server: https://kubernetes.default.svc

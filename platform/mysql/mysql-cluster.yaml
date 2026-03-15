@@ -1,12 +1,15 @@
-apiVersion: mysql.oracle.com/v2
-kind: InnoDBCluster
+apiVersion: ps.percona.com/v1
+kind: PerconaServerMySQL
 metadata:
   name: mysql
   namespace: toy-msa
 spec:
-  secretName: mysql-credentials
-  instances: 2
-  router:
-    instances: 1
-  version: "8.4.3"
-  tlsUseSelfSigned: true
+  secretsName: mysql-credentials
+  mysql:
+    clusterType: async
+    size: 2
+    image: percona/percona-server:8.4.6-6.1
+  proxy:
+    haproxy:
+      enabled: true
+      size: 1
