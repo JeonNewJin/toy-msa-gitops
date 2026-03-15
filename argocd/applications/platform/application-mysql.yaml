@@ -4,14 +4,29 @@ metadata:
   name: platform-mysql
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
-    targetRevision: main
-    path: platform/mysql
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mysql
+    targetRevision: 11.1.20
+    helm:
+      releaseName: mysql
+      values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/mysql
+          tag: 8.4.3-debian-12-r0
+        auth:
+          rootPassword: root
+          username: application
+          password: application
+          database: ecommerce
+        primary:
+          persistence:
+            size: 5Gi
 
   destination:
     server: https://kubernetes.default.svc
