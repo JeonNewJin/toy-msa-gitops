@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: logging-kibana
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: kibana
+    targetRevision: 12.1.10
+    helm:
+      releaseName: kibana
+      values: |
+        image:
+          registry: docker.io
+          repository: bitnamilegacy/kibana
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "1Gi"
+          limits:
+            cpu: "500m"
+            memory: "2Gi"
+        elasticsearch:
+          hosts:
+            - elasticsearch
+          port: 9200
+          security:
+            auth:
+              enabled: false
+          tls:
+            enabled: false
+        startupProbe:
+          enabled: true
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 60
+        readinessProbe:
+          enabled: true
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 60
+        service:
+          type: NodePort
+          nodePorts:
+            http: 30601
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

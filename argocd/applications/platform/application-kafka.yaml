@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infra-kafka
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
+    targetRevision: main
+    path: platform/kafka
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: toy-msa
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
