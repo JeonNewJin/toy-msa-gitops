@@ -5,8 +5,10 @@ metadata:
   namespace: toy-msa
 spec:
   secretsName: mysql-credentials
+  unsafeFlags:
+    mysqlSize: true
   mysql:
-    clusterType: async
+    clusterType: group-replication
     size: 2
     image: percona/percona-server:8.4.6-6.1
   proxy:
