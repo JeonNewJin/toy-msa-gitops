@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra-mysql
+  name: platform-mysql
   namespace: argocd
 spec:
   project: default

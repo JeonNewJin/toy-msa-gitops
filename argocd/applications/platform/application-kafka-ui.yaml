@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra-kafka-ui
+  name: platform-kafka-ui
   namespace: argocd
 spec:
   project: default

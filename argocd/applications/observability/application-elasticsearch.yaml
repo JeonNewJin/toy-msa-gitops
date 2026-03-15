@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: logging-elasticsearch
+  name: obs-elasticsearch
   namespace: argocd
 spec:
   project: default

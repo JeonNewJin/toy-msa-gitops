@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: logging-logstash
+  name: obs-logstash
   namespace: argocd
 spec:
   project: default
