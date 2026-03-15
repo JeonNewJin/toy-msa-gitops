@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-init-db
+  namespace: toy-msa
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: mysql-init
+          image: mysql:8.4
+          command:
+            - /bin/sh
+            - -c
+            - |
+              until mysql -h mysql -P 6446 -u root -proot -e "SELECT 1" 2>/dev/null; do
+                echo "Waiting for MySQL..."
+                sleep 5
+              done
+              mysql -h mysql -P 6446 -u root -proot <<'EOF'
+              CREATE DATABASE IF NOT EXISTS ecommerce;
+              CREATE USER IF NOT EXISTS 'application'@'%' IDENTIFIED BY 'application';
+              GRANT ALL PRIVILEGES ON ecommerce.* TO 'application'@'%';
+              FLUSH PRIVILEGES;
+              EOF
+      restartPolicy: OnFailure

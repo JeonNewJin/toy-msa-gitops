@@ -1,17 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: platform-mysql
+  name: platform-mysql-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/JeonNewJin/toy-msa-gitops.git
-    targetRevision: main
-    path: platform/mysql
+    repoURL: https://mysql.github.io/mysql-operator/
+    chart: mysql-operator
+    targetRevision: 2.2.x
+    helm:
+      releaseName: mysql-operator
 
   destination:
     server: https://kubernetes.default.svc

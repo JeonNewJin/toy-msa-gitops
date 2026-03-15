@@ -21,7 +21,7 @@ configMap:
     LOGSTASH_HOST: logstash
     LOGSTASH_PORT: "5044"
     MYSQL_HOST: mysql
-    MYSQL_PORT: "3306"
+    MYSQL_PORT: "6446"
     GRPC_CLIENT_CATALOG-SERVICE_HOST: app-catalog-service
     GRPC_CLIENT_CATALOG-SERVICE_PORT: "9091"
     BOOTSTRAP_SERVERS: kafka-cluster-kafka-bootstrap:9092

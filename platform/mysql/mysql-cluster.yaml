@@ -1,0 +1,12 @@
+apiVersion: mysql.oracle.com/v2
+kind: InnoDBCluster
+metadata:
+  name: mysql
+  namespace: toy-msa
+spec:
+  secretName: mysql-credentials
+  instances: 1
+  router:
+    instances: 1
+  version: "8.4.3"
+  tlsUseSelfSigned: true
