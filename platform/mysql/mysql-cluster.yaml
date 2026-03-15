@@ -12,6 +12,13 @@ spec:
     clusterType: group-replication
     size: 2
     image: percona/percona-server:8.4.6-6.1
+    volumeSpec:
+      persistentVolumeClaim:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
   backup:
     image: percona/percona-xtrabackup:8.4
   proxy:
