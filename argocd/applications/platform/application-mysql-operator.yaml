@@ -14,6 +14,9 @@ spec:
     targetRevision: 2.2.x
     helm:
       releaseName: mysql-operator
+      values: |
+        image:
+          tag: 9.6.0-2.2.7-aarch64
 
   destination:
     server: https://kubernetes.default.svc
